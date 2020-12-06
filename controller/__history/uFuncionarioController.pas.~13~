@@ -1,0 +1,129 @@
+unit uFuncionarioController;
+
+interface
+
+uses
+  System.SysUtils, Data.DB, uFuncionario;
+
+type
+  TFuncionarioController = class
+  private
+    funcionario : TFuncionario;
+  public
+    function Save(dtSource : TDataSource) : Integer;
+    procedure Open(dtSource : TDataSource);
+    procedure Insert(dtSource : TDataSource);
+    procedure Edit(dtSource : TDataSource);
+    function Delete(dtSource : TDataSource) : Boolean;
+    procedure Filter(dtSource : TDataSource; tpPesquisa : Integer; valor : string); overload;
+    procedure Cancel(dtSource : TDataSource);
+
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+{ TFuncionarioController }
+
+procedure TFuncionarioController.Cancel(dtSource: TDataSource);
+begin
+  if not(funcionario.Cancel(dtSource)) then
+    raise Exception.Create('Erro ao tentar cancelar a operação!');
+end;
+
+constructor TFuncionarioController.Create;
+begin
+  funcionario := TFuncionario.Create;
+  inherited Create;
+end;
+
+function TFuncionarioController.Delete(dtSource: TDataSource): Boolean;
+begin
+  if (dtSource.DataSet.RecordCount <= 0) then
+    raise Exception.Create('A tabela está vazia!');
+
+  Result:= funcionario.Delete(dtSource);
+  if not(Result) then
+   raise Exception.Create('Erro ao tentar excluir o resgistro');
+end;
+
+destructor TFuncionarioController.Destroy;
+begin
+  funcionario.Free;
+  inherited Destroy;
+end;
+
+procedure TFuncionarioController.Edit(dtSource: TDataSource);
+begin
+  if not(funcionario.Edit(dtSource)) then
+   raise Exception.Create('Erro ao tentar colocar a tabela de cadastro de funcionários em modo de edição!');
+end;
+
+procedure TFuncionarioController.Filter(dtSource: TDataSource;
+  tpPesquisa: Integer; valor: string);
+var
+  vlrInt : Integer;
+begin
+  if (valor = '') then
+   raise Exception.Create('Valor da pesquisa está vazio!');
+
+  if (tpPesquisa = 0) then
+   begin
+    try
+      vlrInt := StrToInt(valor);
+    except
+      vlrInt := 0;
+    end;
+
+    if not(funcionario.Filter(dtSource, vlrInt)) then
+      raise Exception.Create('Erro ao ralizar a pesquisa');
+   end
+  else
+  if (tpPesquisa = 1) then
+   begin
+     if not(funcionario.Filter(dtSource, valor)) then
+       raise Exception.Create('Erro ao ralizar a pesquisa');
+   end;
+end;
+
+procedure TFuncionarioController.Insert(dtSource: TDataSource);
+begin
+  if not(funcionario.Insert(dtSource)) then
+   raise Exception.Create('Erro ao tentar colocar a tabela de cadastro de funcionários em modo de inserção!');
+end;
+
+procedure TFuncionarioController.Open(dtSource: TDataSource);
+begin
+  if not(funcionario.Open(dtSource)) then
+   raise Exception.Create('Erro ao abrir a tabela de cadastro de funcionários!');
+end;
+
+function TFuncionarioController.Save(dtSource: TDataSource): Integer;
+begin
+  //Validações do Objeto na camada de controle
+  if not(Assigned(dtSource)) then
+    raise Exception.Create('A tabela não está criada em memória!');
+
+  if (dtSource.DataSet.FieldByName('NOME').AsString = '') then
+    raise Exception.Create('Informe um nome para o funcionário, antes de continuar!');
+
+  if (dtSource.DataSet.FieldByName('SEXO').AsString = '') then
+    raise Exception.Create('Informe o sexo do funcionário, antes de continuar!');
+
+  if (dtSource.DataSet.FieldByName('CPF').AsString = '') then
+    raise Exception.Create('Informe o CPF do funcionário, antes de continuar!');
+
+  if (dtSource.DataSet.FieldByName('DT_ADMISSAO').AsString = '') then
+    raise Exception.Create('Informe a data de admissão do funcionário, antes de continuar!');
+
+  if (dtSource.DataSet.State = dsInsert) and (funcionario.GetFuncionarioID(dtSource,
+      dtSource.DataSet.FieldByName('NOME').AsString, dtSource.DataSet.FieldByName('CPF').AsString) > 0) then
+     raise Exception.Create('Já existe um funcionário cadastrado com o mesmo nome e CPF!');
+
+  Result := funcionario.Save(dtSource);
+  if (Result <= 0) then
+   raise Exception.Create('Erro ao tentar salvar um registro na tabela de cadastro de funcionários');
+end;
+
+end.

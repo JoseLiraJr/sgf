@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<BorlandProject>
+	<Transactions>
+    <Transaction>2020/12/05 20:03:39.000.699,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 20:13:45.000.184,C:\SGF\Unit1.dfm=C:\SGF\repository\uBase.dfm</Transaction>
+    <Transaction>2020/12/05 20:13:45.000.184,C:\SGF\Unit1.pas=C:\SGF\repository\uBase.pas</Transaction>
+    <Transaction>2020/12/05 20:16:43.000.826,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 20:27:48.000.949,=C:\SGF\utils\uVisualControl.pas</Transaction>
+    <Transaction>2020/12/05 20:33:19.000.897,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 20:35:09.000.689,C:\SGF\Unit1.dfm=C:\SGF\view\uCadFuncionario.dfm</Transaction>
+    <Transaction>2020/12/05 20:35:09.000.689,C:\SGF\Unit1.pas=C:\SGF\view\uCadFuncionario.pas</Transaction>
+    <Transaction>2020/12/05 21:06:00.000.178,=C:\SGF\model\uDmPrincipal.pas</Transaction>
+    <Transaction>2020/12/05 21:10:37.000.238,=C:\SGF\controller\uConexaoController.pas</Transaction>
+    <Transaction>2020/12/05 22:36:58.735,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 22:39:15.021,C:\SGF\model\uDmTabelas.dfm=C:\SGF\Unit1.dfm</Transaction>
+    <Transaction>2020/12/05 22:39:15.021,C:\SGF\model\uDmTabelas.pas=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 23:21:38.555,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 23:24:45.035,C:\SGF\controller\uFuncionarioController.pas=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 23:25:47.490,=C:\SGF\Unit1.pas</Transaction>
+    <Transaction>2020/12/05 23:29:33.796,C:\SGF\model\uFuncionario.pas=C:\SGF\Unit1.pas</Transaction>
+  </Transactions>
+</BorlandProject>

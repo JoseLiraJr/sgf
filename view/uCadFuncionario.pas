@@ -1,0 +1,161 @@
+unit uCadFuncionario;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, uBase, Data.DB, Vcl.ExtCtrls, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls, uDmTabelas, Vcl.DBCtrls,
+  Vcl.Mask, uFuncionarioController;
+
+type
+  tpPesquisa = (tpCodigo, tpNome);
+
+type
+  TfrmCadFuncionario = class(TfrmBase)
+    Label1: TLabel;
+    edtNome: TDBEdit;
+    Label2: TLabel;
+    edtCPF: TDBEdit;
+    Label3: TLabel;
+    edtRua: TDBEdit;
+    Label4: TLabel;
+    edtNumCasa: TDBEdit;
+    Label5: TLabel;
+    edtBairro: TDBEdit;
+    cbSexo: TDBComboBox;
+    Label6: TLabel;
+    Label7: TLabel;
+    edtCidade: TDBEdit;
+    cbUF: TDBComboBox;
+    Label8: TLabel;
+    Label9: TLabel;
+    edtCEP: TDBEdit;
+    Label10: TLabel;
+    edtTelefone: TDBEdit;
+    Label11: TLabel;
+    edtEmail: TDBEdit;
+    Label12: TLabel;
+    edtDtEmissao: TDBEdit;
+    procedure FormCreate(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure btnInserirClick(Sender: TObject);
+    procedure btnAlterarClick(Sender: TObject);
+    procedure btnConfirmarClick(Sender: TObject);
+    procedure btnCancelarClick(Sender: TObject);
+    procedure btnExcluirClick(Sender: TObject);
+    procedure EditsKeyPress(Sender : TObject; var Key : Char);
+    procedure radiobuttonsClick(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+    procedure btnLocalizarClick(Sender: TObject);
+    procedure edtDtEmissaoExit(Sender: TObject);
+  private
+    { Private declarations }
+    dtmTabelas : TdmTabelas;
+    funcionarioCTO : TFuncionarioController;
+    tipo : tpPesquisa;
+  public
+    { Public declarations }
+  end;
+
+var
+  frmCadFuncionario: TfrmCadFuncionario;
+
+implementation
+
+uses
+  uVisualControl;
+
+{$R *.dfm}
+
+procedure TfrmCadFuncionario.btnAlterarClick(Sender: TObject);
+begin
+  funcionarioCTO.Edit(dtmTabelas.dsFuncionario);
+  inherited;
+end;
+
+procedure TfrmCadFuncionario.btnCancelarClick(Sender: TObject);
+begin
+  funcionarioCTO.Cancel(dtmTabelas.dsFuncionario);
+  inherited;
+end;
+
+procedure TfrmCadFuncionario.btnConfirmarClick(Sender: TObject);
+var
+  id : Integer;
+begin
+  id := funcionarioCTO.Save(dtmTabelas.dsFuncionario);
+  if (id > 0) then
+   Application.MessageBox(PChar('Funcionário ' + IntToStr(id) + ' registrado com Sucesso!'), 'Informação', MB_OK + MB_ICONINFORMATION);
+
+  inherited;
+end;
+
+procedure TfrmCadFuncionario.btnExcluirClick(Sender: TObject);
+begin
+  if (funcionarioCTO.Delete(dtmTabelas.dsFuncionario)) then
+    Application.MessageBox('Funcionário excluido com Sucesso!', 'Informação', MB_OK + MB_ICONINFORMATION);
+end;
+
+procedure TfrmCadFuncionario.btnInserirClick(Sender: TObject);
+begin
+  funcionarioCTO.Insert(dtmTabelas.dsFuncionario);
+  inherited;
+end;
+
+procedure TfrmCadFuncionario.btnLocalizarClick(Sender: TObject);
+begin
+  funcionarioCTO.Filter(dtmTabelas.dsFuncionario, Integer(tipo), edtLocalizar.Text);
+end;
+
+procedure TfrmCadFuncionario.EditsKeyPress(Sender: TObject; var Key: Char);
+begin
+  if (Sender = edtDtEmissao)then
+    begin
+      if not(CharData(Key)) then
+        Key := #0;
+    end
+  else
+  if not((Sender = edtLocalizar) and (tipo = tpNome)) then
+    begin
+      if not(CharNumbers(Key)) then
+        Key := #0;
+    end;
+end;
+
+procedure TfrmCadFuncionario.edtDtEmissaoExit(Sender: TObject);
+begin
+  if not(ValidaData(edtDtEmissao.Text)) then
+    Application.MessageBox('A data informada é inválida!', 'Erro', MB_OK + MB_ICONERROR);
+end;
+
+procedure TfrmCadFuncionario.FormCreate(Sender: TObject);
+begin
+  inherited;
+  dtmTabelas := TdmTabelas.Create(Self);
+  funcionarioCTO := TFuncionarioController.Create;
+  funcionarioCTO.Open(dtmTabelas.dsFuncionario);
+end;
+
+procedure TfrmCadFuncionario.FormDestroy(Sender: TObject);
+begin
+  funcionarioCTO.Free;
+  dtmTabelas.Free;
+end;
+
+procedure TfrmCadFuncionario.FormShow(Sender: TObject);
+begin
+  tipo := tpCodigo;
+end;
+
+procedure TfrmCadFuncionario.radiobuttonsClick(Sender: TObject);
+begin
+  inherited;
+  if (Sender = rbCodigo) then
+    tipo := tpCodigo
+  else
+  if (Sender = rbDescricao) then
+    tipo := tpNome;
+end;
+
+end.

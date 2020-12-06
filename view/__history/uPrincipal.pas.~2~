@@ -1,0 +1,53 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus;
+
+type
+  TfrmPrincipal = class(TForm)
+    mnPrincipal: TMainMenu;
+    mnuCadastro: TMenuItem;
+    mniFuncionario: TMenuItem;
+    N1: TMenuItem;
+    Sair1: TMenuItem;
+    Ajuda1: TMenuItem;
+    SobreoSistema1: TMenuItem;
+    procedure FormCreate(Sender: TObject);
+    procedure SobreoSistema1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uSobre;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  Caption := Application.Title;
+end;
+
+procedure TfrmPrincipal.SobreoSistema1Click(Sender: TObject);
+var
+  frmSobre : TfrmSobre;
+begin
+  frmSobre := TfrmSobre.Create(Self);
+  try
+    frmSobre.ShowModal;
+  finally
+    frmSobre.Free;
+  end;
+end;
+
+end.

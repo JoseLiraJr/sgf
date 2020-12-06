@@ -1,0 +1,18 @@
+program sgf;
+
+uses
+  Vcl.Forms,
+  uPrincipal in 'view\uPrincipal.pas' {frmPrincipal},
+  uSobre in 'view\uSobre.pas' {frmSobre},
+  uBase in 'repository\uBase.pas' {frmBase};
+
+{$R *.res}
+
+begin
+  Application.Initialize;
+  Application.MainFormOnTaskbar := True;
+  Application.Title := 'SGF - Sistema de Gerenciamento de Funcionários';
+  Application.CreateForm(TfrmPrincipal, frmPrincipal);
+  Application.CreateForm(TfrmBase, frmBase);
+  Application.Run;
+end.

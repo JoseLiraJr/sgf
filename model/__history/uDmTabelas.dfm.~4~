@@ -1,0 +1,98 @@
+object dmTabelas: TdmTabelas
+  OldCreateOrder = False
+  OnCreate = DataModuleCreate
+  Height = 152
+  Width = 239
+  object qryFuncionario: TFDQuery
+    Connection = dmPrincipal.Conexao
+    SQL.Strings = (
+      'SELECT * FROM FUNCIONARIO')
+    Left = 32
+    Top = 32
+    object qryFuncionarioID: TFDAutoIncField
+      DisplayLabel = 'C'#243'digo'
+      FieldName = 'ID'
+      Origin = 'ID'
+      ProviderFlags = [pfInWhere, pfInKey]
+    end
+    object qryFuncionarioNOME: TStringField
+      DisplayLabel = 'Nome Funcion'#225'rio'
+      FieldName = 'NOME'
+      Origin = 'NOME'
+      Required = True
+      Size = 150
+    end
+    object qryFuncionarioCPF: TStringField
+      FieldName = 'CPF'
+      Origin = 'CPF'
+      Required = True
+      Size = 11
+    end
+    object qryFuncionarioSEXO: TStringField
+      DisplayLabel = 'Sexo'
+      FieldName = 'SEXO'
+      Origin = 'SEXO'
+      Required = True
+      FixedChar = True
+      Size = 1
+    end
+    object qryFuncionarioLOGRADOURO: TStringField
+      DisplayLabel = 'Rua'
+      FieldName = 'LOGRADOURO'
+      Origin = 'LOGRADOURO'
+      Required = True
+      Size = 150
+    end
+    object qryFuncionarioNUMERO: TStringField
+      DisplayLabel = 'N'#186' Casa'
+      FieldName = 'NUMERO'
+      Origin = 'NUMERO'
+      Size = 10
+    end
+    object qryFuncionarioBAIRRO: TStringField
+      DisplayLabel = 'Bairro'
+      FieldName = 'BAIRRO'
+      Origin = 'BAIRRO'
+      Size = 70
+    end
+    object qryFuncionarioCIDADE: TStringField
+      DisplayLabel = 'Cidade'
+      FieldName = 'CIDADE'
+      Origin = 'CIDADE'
+      Size = 70
+    end
+    object qryFuncionarioUF: TStringField
+      FieldName = 'UF'
+      Origin = 'UF'
+      FixedChar = True
+      Size = 2
+    end
+    object qryFuncionarioCEP: TStringField
+      FieldName = 'CEP'
+      Origin = 'CEP'
+      Size = 8
+    end
+    object qryFuncionarioTELEFONE: TStringField
+      DisplayLabel = 'Telefone'
+      FieldName = 'TELEFONE'
+      Origin = 'TELEFONE'
+      Size = 12
+    end
+    object qryFuncionarioEMAIL: TStringField
+      DisplayLabel = 'E-mail'
+      FieldName = 'EMAIL'
+      Origin = 'EMAIL'
+      Size = 100
+    end
+    object qryFuncionarioDT_ADMISSAO: TDateField
+      DisplayLabel = 'Dt. Admiss'#227'o'
+      FieldName = 'DT_ADMISSAO'
+      Origin = 'DT_ADMISSAO'
+    end
+  end
+  object dsFuncionario: TDataSource
+    DataSet = qryFuncionario
+    Left = 104
+    Top = 32
+  end
+end

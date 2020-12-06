@@ -1,0 +1,43 @@
+object frmPrincipal: TfrmPrincipal
+  Left = 0
+  Top = 0
+  Caption = 'frmPrincipal'
+  ClientHeight = 281
+  ClientWidth = 477
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -11
+  Font.Name = 'Tahoma'
+  Font.Style = []
+  Menu = mnPrincipal
+  OldCreateOrder = False
+  WindowState = wsMaximized
+  OnCreate = FormCreate
+  PixelsPerInch = 96
+  TextHeight = 13
+  object mnPrincipal: TMainMenu
+    Left = 40
+    Top = 16
+    object mnuCadastro: TMenuItem
+      Caption = '&Cadastro'
+      object mniFuncionario: TMenuItem
+        Caption = '&Funcionario'
+        OnClick = mniFuncionarioClick
+      end
+      object N1: TMenuItem
+        Caption = '-'
+      end
+      object Sair1: TMenuItem
+        Caption = 'Sa&ir'
+      end
+    end
+    object Ajuda1: TMenuItem
+      Caption = '&Ajuda'
+      object SobreoSistema1: TMenuItem
+        Caption = '&Sobre o Sistema'
+        OnClick = SobreoSistema1Click
+      end
+    end
+  end
+end

@@ -1,0 +1,13 @@
+object dmTabelas: TdmTabelas
+  OldCreateOrder = False
+  Height = 176
+  Width = 244
+  object qryFuncionario: TFDQuery
+    Left = 32
+    Top = 32
+  end
+  object dsFuncionario: TDataSource
+    Left = 104
+    Top = 32
+  end
+end

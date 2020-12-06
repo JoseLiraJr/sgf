@@ -1,0 +1,52 @@
+unit uBase;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Data.DB, Vcl.ExtCtrls, Vcl.Grids,
+  Vcl.DBGrids, Vcl.StdCtrls, Vcl.Buttons, Vcl.ComCtrls;
+
+type
+  TfrmBase = class(TForm)
+    pnTop: TFlowPanel;
+    btnInserir: TBitBtn;
+    btnAlterar: TBitBtn;
+    btnExcluir: TBitBtn;
+    btnFechar: TBitBtn;
+    pnBody: TFlowPanel;
+    pgcBase: TPageControl;
+    tabConsulta: TTabSheet;
+    GroupBox1: TGroupBox;
+    btnLocalizar: TSpeedButton;
+    rbCodigo: TRadioButton;
+    rbDescricao: TRadioButton;
+    edtLocalizar: TEdit;
+    grdConsulta: TDBGrid;
+    tabCadastro: TTabSheet;
+    Bevel1: TBevel;
+    btnConfirmar: TBitBtn;
+    btnCancelar: TBitBtn;
+    procedure pgcBaseChanging(Sender: TObject; var AllowChange: Boolean);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmBase: TfrmBase;
+
+implementation
+
+uses
+  uVisualControl;
+
+{$R *.dfm}
+
+procedure TfrmBase.pgcBaseChanging(Sender: TObject; var AllowChange: Boolean);
+begin
+  AllowChange := False;
+end;
+
+end.

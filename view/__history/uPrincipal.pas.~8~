@@ -1,0 +1,135 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Buttons, Vcl.ExtCtrls,
+  Vcl.ComCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    mnPrincipal: TMainMenu;
+    mnuCadastro: TMenuItem;
+    mniFuncionario: TMenuItem;
+    N1: TMenuItem;
+    mniSair: TMenuItem;
+    Ajuda1: TMenuItem;
+    mniSobre: TMenuItem;
+    pnTop: TPanel;
+    btnFuncionario: TSpeedButton;
+    btnSobre: TSpeedButton;
+    btnSair: TSpeedButton;
+    stbPrincipal: TStatusBar;
+    procedure FormCreate(Sender: TObject);
+    procedure mniSobreClick(Sender: TObject);
+    procedure mniFuncionarioClick(Sender: TObject);
+    procedure btnFuncionarioClick(Sender: TObject);
+    procedure btnSobreClick(Sender: TObject);
+    procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure btnSairClick(Sender: TObject);
+    procedure mniSairClick(Sender: TObject);
+    procedure FormDestroy(Sender: TObject);
+    procedure FormShow(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uSobre, uCadFuncionario, uConexaoController, uDmPrincipal;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.btnFuncionarioClick(Sender: TObject);
+begin
+  mniFuncionario.Click;
+end;
+
+procedure TfrmPrincipal.btnSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmPrincipal.btnSobreClick(Sender: TObject);
+begin
+  mniSobre.Click;
+end;
+
+procedure TfrmPrincipal.FormClose(Sender: TObject; var Action: TCloseAction);
+begin
+  if (Application.MessageBox('Deseja realmente sair do Sistema?', 'Encerrar Aplicação', MB_ICONQUESTION + MB_YESNO) = mrYes) then
+    Action := caFree
+  else
+    Action := caNone;
+end;
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+var
+  ConexaoCto : TConexaoController;
+  criouDados : Boolean;
+begin
+  //Setando o Caption do Form
+  Caption := Application.Title;
+
+  //Criando o Banco de Dados
+  ConexaoCto := TConexaoController.Create;
+  try
+    ConexaoCto.createData;
+    criouDados := ConexaoCto.criouDados;
+  finally
+    ConexaoCto.Free;
+  end;
+
+  //Encerrando a Aplicação caso haja erros na criação das tabelas.
+  if not(criouDados) then
+    Application.Terminate;
+end;
+
+procedure TfrmPrincipal.FormDestroy(Sender: TObject);
+begin
+  TdmPrincipal.Destroy;
+end;
+
+procedure TfrmPrincipal.FormShow(Sender: TObject);
+begin
+  stbPrincipal.Panels[0].Text := Application.Title;
+  stbPrincipal.Panels[1].Text :=
+end;
+
+procedure TfrmPrincipal.mniFuncionarioClick(Sender: TObject);
+var
+  frmCadFuncionario : TfrmCadFuncionario;
+begin
+  frmCadFuncionario := TfrmCadFuncionario.Create(Self);
+  try
+    frmCadFuncionario.ShowModal;
+  finally
+    frmCadFuncionario.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.mniSairClick(Sender: TObject);
+begin
+  Close;
+end;
+
+procedure TfrmPrincipal.mniSobreClick(Sender: TObject);
+var
+  frmSobre : TfrmSobre;
+begin
+  frmSobre := TfrmSobre.Create(Self);
+  try
+    frmSobre.ShowModal;
+  finally
+    frmSobre.Free;
+  end;
+end;
+
+end.

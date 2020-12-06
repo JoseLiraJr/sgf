@@ -1,0 +1,43 @@
+unit uFuncionario;
+
+interface
+
+uses
+  Data.DB, System.SysUtils;
+
+type
+  TFuncionario = class
+  public
+    function Open(dtSource : TDataSource) : Boolean;
+
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+{ TFuncionario }
+
+constructor TFuncionario.Create;
+begin
+  inherited Create;
+end;
+
+destructor TFuncionario.Destroy;
+begin
+  inherited Destroy;
+end;
+
+function TFuncionario.Open(dtSource: TDataSource): Boolean;
+begin
+  Result := True;
+  try
+   if not(dtSource.DataSet.Active) then
+     dtSource.DataSet.Active := True;
+   dtSource.DataSet.Open;
+  except
+   Result := False;
+  end;
+end;
+
+end.

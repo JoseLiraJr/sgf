@@ -1,0 +1,70 @@
+unit uPrincipal;
+
+interface
+
+uses
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, Vcl.Menus, Vcl.Buttons, Vcl.ExtCtrls;
+
+type
+  TfrmPrincipal = class(TForm)
+    mnPrincipal: TMainMenu;
+    mnuCadastro: TMenuItem;
+    mniFuncionario: TMenuItem;
+    N1: TMenuItem;
+    Sair1: TMenuItem;
+    Ajuda1: TMenuItem;
+    SobreoSistema1: TMenuItem;
+    pnTop: TPanel;
+    btnFuncionario: TSpeedButton;
+    btnSobre: TSpeedButton;
+    btnSair: TSpeedButton;
+    procedure FormCreate(Sender: TObject);
+    procedure SobreoSistema1Click(Sender: TObject);
+    procedure mniFuncionarioClick(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  frmPrincipal: TfrmPrincipal;
+
+implementation
+
+uses
+  uSobre, uCadFuncionario;
+
+{$R *.dfm}
+
+procedure TfrmPrincipal.FormCreate(Sender: TObject);
+begin
+  Caption := Application.Title;
+end;
+
+procedure TfrmPrincipal.mniFuncionarioClick(Sender: TObject);
+var
+  frmCadFuncionario : TfrmCadFuncionario;
+begin
+  frmCadFuncionario := TfrmCadFuncionario.Create(Self);
+  try
+    frmCadFuncionario.ShowModal;
+  finally
+    frmCadFuncionario.Free;
+  end;
+end;
+
+procedure TfrmPrincipal.SobreoSistema1Click(Sender: TObject);
+var
+  frmSobre : TfrmSobre;
+begin
+  frmSobre := TfrmSobre.Create(Self);
+  try
+    frmSobre.ShowModal;
+  finally
+    frmSobre.Free;
+  end;
+end;
+
+end.

@@ -1,0 +1,65 @@
+unit uFuncionario;
+
+interface
+
+uses
+  Data.DB, System.SysUtils,  System.Variants;
+
+type
+  TFuncionario = class
+  public
+    function Save(dtSource : TDataSource) : Integer;
+    function Open(dtSource : TDataSource) : Boolean;
+    function GetFuncionarioID(dtSource : TDataSource; nome, cpf : string) : Integer;
+
+    constructor Create;
+    destructor Destroy; override;
+  end;
+
+implementation
+
+{ TFuncionario }
+
+constructor TFuncionario.Create;
+begin
+  inherited Create;
+end;
+
+destructor TFuncionario.Destroy;
+begin
+  inherited Destroy;
+end;
+
+function TFuncionario.GetFuncionarioID(dtSource: TDataSource; nome,
+  cpf: string): Integer;
+begin
+  try
+    Result := dtSource.DataSet.Lookup('NOME;CPF', VarArrayOf([nome, cpf]), 'ID');
+  except
+    Result := 0;
+  end;
+end;
+
+function TFuncionario.Open(dtSource: TDataSource): Boolean;
+begin
+  Result := True;
+  try
+   if not(dtSource.DataSet.Active) then
+     dtSource.DataSet.Active := True;
+   dtSource.DataSet.Open;
+  except
+   Result := False;
+  end;
+end;
+
+function TFuncionario.Save(dtSource: TDataSource): Integer;
+begin
+  try
+    dtSource.DataSet.Post;
+    Result := dtSource.DataSet.FieldByName('ID').AsInteger;
+  except
+    Result := 0;
+  end;
+end;
+
+end.
