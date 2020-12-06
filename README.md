@@ -1,5 +1,5 @@
 #SGF
-- Sistema de Gerenciamento de Funcionários
+Sistema de Gerenciamento de Funcionários
 ----------------------------------------------
 O Sistema foi desenvolvido com fins didáticos e como parte de processo seletivo da empresa ASC Solutions. 
 
