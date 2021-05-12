@@ -1,7 +1,7 @@
 #SGF
 Sistema de Gerenciamento de Funcionários
 ----------------------------------------------
-O Sistema foi desenvolvido com fins didáticos e como parte de processo seletivo da empresa ASC Solutions. 
+O Sistema foi desenvolvido com fins didáticos. 
 
 Foi utilizado a linguagem de programação Object Pascal, a IDE Embarcadero® Delphi 10.3 Version 26.0.36039.7899, FireDAC para o acesso aos dados e o SGBD SQLite.
 
